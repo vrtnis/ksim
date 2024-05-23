@@ -39,7 +39,7 @@ jobs:
           ONSHAPE_ACCESS_KEY: ${{ secrets.ONSHAPE_ACCESS_KEY }}
           ONSHAPE_SECRET_KEY: ${{ secrets.ONSHAPE_SECRET_KEY }}
           ONSHAPE_API: ${{ secrets.ONSHAPE_API }}
-        run: python -m sim.scripts.update_stompy_s3
+        run: python -m ksim.scripts.update_stompy_s3
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
