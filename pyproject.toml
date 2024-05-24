@@ -30,10 +30,20 @@ warn_redundant_casts = true
 incremental = true
 namespace_packages = false
 
-# Uncomment to exclude modules from Mypy.
-# [[tool.mypy.overrides]]
-# module = []
-# ignore_missing_imports = true
+enable_incomplete_feature = ["Unpack"]
+
+[[tool.mypy.overrides]]
+
+module = [
+    "brax.*",
+    "etils.*",
+    "mujoco.*",
+    "tqdm.*",
+    "jaxlib.cpu.*",
+    "jaxlib.mlir.*",
+]
+
+ignore_missing_imports = true
 
 [tool.isort]
 
