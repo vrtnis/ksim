@@ -70,7 +70,7 @@ jobs:
             aws s3 cp "$file" s3://${AWS_S3_BUCKET}/$(basename "$file")
           done
           for file in stompy_arm/*.tar.gz; do
-            aws s3 cp "$file" s3://${AWS_S3_BUCKET}/$(basename "$file")
+            aws s3 cp "$file" s3://${AWS_S3_BUCKET}/arm_$(basename "$file")
           done
 
       - name: Save cache
