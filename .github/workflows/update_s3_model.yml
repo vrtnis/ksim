@@ -69,6 +69,9 @@ jobs:
           for file in stompy/*.tar.gz; do
             aws s3 cp "$file" s3://${AWS_S3_BUCKET}/$(basename "$file")
           done
+          for file in stompy_arm/*.tar.gz; do
+            aws s3 cp "$file" s3://${AWS_S3_BUCKET}/$(basename "$file")
+          done
 
       - name: Save cache
         uses: actions/cache/save@v3
