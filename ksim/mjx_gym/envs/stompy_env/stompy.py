@@ -11,7 +11,7 @@ from brax.io import mjcf
 from brax.mjx.base import State as mjxState
 
 from ksim.mjx_gym.envs.default_humanoid_env.default_humanoid import EnvKwargs
-from ksim.mjx_gym.envs.default_humanoid_env.rewards import (
+from ksim.mjx_gym.envs.stompy_env.rewards import (
     DEFAULT_REWARD_PARAMS,
     RewardParams,
     get_reward_fn,
@@ -30,7 +30,7 @@ class StompyEnv(PipelineEnv):
         log_reward_breakdown: bool = True,
         **kwargs: Unpack[EnvKwargs],
     ) -> None:
-        path = os.getenv("MODEL_DIR", "") + "/stompy/stompy.xml"
+        path = os.getenv("MODEL_DIR", "") + "/stompy/stompy_armless.xml"
         mj_model = mujoco.MjModel.from_xml_path(path)
         mj_model.opt.solver = mujoco.mjtSolver.mjSOL_CG
         mj_model.opt.iterations = 6

@@ -15,6 +15,7 @@ from ksim.mjx_gym.envs.default_humanoid_env.rewards import (
 DEFAULT_REWARD_PARAMS: RewardParams = {
     "rew_forward": {"weight": 1.25},
     "rew_healthy": {"weight": 5.0, "healthy_z_lower": 1.0, "healthy_z_upper": 2.0},
+    "rew_height": {"weight": 0.8},
     "rew_ctrl_cost": {"weight": 0.1},
 }
 
@@ -74,12 +75,12 @@ def forward_reward_fn(
     Returns:
         A float wrapped in a jax array.
     """
-    xpos = state.subtree_com[1][1]  # TODO: include stricter typing than mjxState to avoid this type error
+    xpos = state.subtree_com[1][1]  # Dimension 1 is the backward direction in the Stompy environment
     next_xpos = next_state.subtree_com[1][1]
     velocity = (next_xpos - xpos) / dt
-    forward_reward = params["weight"] * velocity * -1.0
+    forward_reward = params["weight"] * velocity * -1
 
-    return forward_reward, jp.array(1.0)  # TODO: ensure everything is initialized in a size 2 array instead...
+    return forward_reward, jp.array(1.0)
 
 
 def healthy_reward_fn(
@@ -110,6 +111,31 @@ def healthy_reward_fn(
     return healthy_reward, is_healthy
 
 
+def height_reward_fn(
+    state: mjxState,
+    action: jp.ndarray,
+    next_state: mjxState,
+    dt: jax.Array,
+    params: RewardDict,
+) -> Tuple[jp.ndarray, jp.ndarray]:
+    """Reward function for height.
+
+    Args:
+        state: Current state.
+        action: Action taken.
+        next_state: Next state.
+        dt: Time step.
+        params: Reward parameters.
+
+    Returns:
+        A float wrapped in a jax array.
+    """
+    height = state.q[2]
+    height_reward = params["weight"] * height
+
+    return height_reward, jp.array(1.0)
+
+
 def ctrl_cost_reward_fn(
     state: mjxState,
     action: jp.ndarray,
@@ -137,5 +163,6 @@ def ctrl_cost_reward_fn(
 reward_functions: dict[str, RewardFunction] = {
     "rew_forward": forward_reward_fn,
     "rew_healthy": healthy_reward_fn,
+    "rew_height": height_reward_fn,
     "rew_ctrl_cost": ctrl_cost_reward_fn,
 }

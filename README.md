@@ -142,7 +142,7 @@ To visualize any MJCF file, you can run the following command:
 python3 -m mujoco.viewer --mjcf <path-to-mjcf-file>
 ```
 
-The command above loads MuJoCo's GUI, which allows you to simulate the model, manually specify joints, and 
+The command above loads MuJoCo's GUI, which allows you to simulate the model, manually specify joints, and save keyframes.
 
 ## TODO
 - Bootstrap 

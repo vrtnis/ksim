@@ -1,7 +1,8 @@
-"""Defines the CLI for running PPO training with specified config file."""
+"""Play a trained PPO agent in a specified environment."""
 
 import argparse
 import logging
+import os
 from typing import Any
 
 import mediapy as media
@@ -20,8 +21,11 @@ from ksim.mjx_gym.utils.rollouts import render_mjx_rollout, render_mujoco_rollou
 
 logger = logging.getLogger(__name__)
 
+os.environ["PYOPENGL_PLATFORM"] = "osmesa"
+os.environ["MESA_GL_VERSION_OVERRIDE"] = "3.3"
 
-def train(config: dict[str, Any], n_steps: int, render_every: int) -> None:
+
+def play(config: dict[str, Any], n_steps: int, render_every: int) -> None:
     wandb.init(
         project=config.get("project_name", "robotic_locomotion_training") + "_test",
         name=config.get("experiment_name", "ppo-training") + "_test",
@@ -58,11 +62,19 @@ def train(config: dict[str, Any], n_steps: int, render_every: int) -> None:
         normalize = (
             running_statistics.normalize
         )  # NOTE: very important to keep training & test normalization consistent
+
     policy_network = ppo_networks.make_ppo_networks(
-        env.observation_size, env.action_size, preprocess_observations_fn=normalize
+        env.observation_size,
+        env.action_size,
+        preprocess_observations_fn=normalize,
+        policy_hidden_layer_sizes=config["policy_hidden_layer_sizes"],
+        value_hidden_layer_sizes=config["value_hidden_layer_sizes"],
     )
+    params = (params[0], params[1].policy)
+    # Params are a tuple of (processor_params, PolicyNetwork)
     inference_fn = ppo_networks.make_inference_fn(policy_network)(params)
     print(f"Loaded params from {model_path}")
+    print(inference_fn)
 
     # rolling out a trajectory
     if args.use_mujoco:
@@ -95,4 +107,4 @@ if __name__ == "__main__":
     with open(args.config, "r") as file:
         config = yaml.safe_load(file)
 
-    train(config, args.n_steps, args.render_every)
+    play(config, args.n_steps, args.render_every)
