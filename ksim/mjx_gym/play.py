@@ -25,7 +25,7 @@ os.environ["PYOPENGL_PLATFORM"] = "osmesa"
 os.environ["MESA_GL_VERSION_OVERRIDE"] = "3.3"
 
 
-def play(config: dict[str, Any], n_steps: int, render_every: int) -> None:
+def play(config: dict[str, Any], n_steps: int, render_every: int, width: int, height: int) -> None:
     wandb.init(
         project=config.get("project_name", "robotic_locomotion_training") + "_test",
         name=config.get("experiment_name", "ppo-training") + "_test",
@@ -78,9 +78,9 @@ def play(config: dict[str, Any], n_steps: int, render_every: int) -> None:
 
     # rolling out a trajectory
     if args.use_mujoco:
-        images_thwc = render_mujoco_rollout(env, inference_fn, n_steps, render_every)
+        images_thwc = render_mujoco_rollout(env, inference_fn, n_steps, render_every, width=width, height=height)
     else:
-        images_thwc = render_mjx_rollout(env, inference_fn, n_steps, render_every)
+        images_thwc = render_mjx_rollout(env, inference_fn, n_steps, render_every, width=width, height=height)
     print(f"Rolled out {len(images_thwc)} steps")
 
     # render the trajectory
@@ -101,10 +101,11 @@ if __name__ == "__main__":
     parser.add_argument("--params_path", type=str, default=None, help="Path to the params file")
     parser.add_argument("--n_steps", type=int, default=1000, help="Number of steps to rollout")
     parser.add_argument("--render_every", type=int, default=2, help="Render every nth step")
+    parser.add_argument("--width", type=int, default=320, help="width in pixels")
+    parser.add_argument("--height", type=int, default=240, help="height in pixels")
     args = parser.parse_args()
 
     # Load config file
     with open(args.config, "r") as file:
         config = yaml.safe_load(file)
-
-    play(config, args.n_steps, args.render_every)
+    play(config, args.n_steps, args.render_every, args.width, args.height)

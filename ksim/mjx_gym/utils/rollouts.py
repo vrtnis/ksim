@@ -65,6 +65,8 @@ def render_mjx_rollout(
     n_steps: int = 1000,
     render_every: int = 2,
     seed: int = 0,
+    width: int = 320,
+    height: int = 240,
 ) -> np.ndarray:
     """Rollout a trajectory using MuJoCo and render it.
 
@@ -74,12 +76,14 @@ def render_mjx_rollout(
         n_steps: Number of steps to rollout
         render_every: Render every nth step
         seed: Random seed
+        width: width of rendered frame in pixels
+        height: height of rendered frame in pixels
 
     Returns:
         A list of renderings of the policy rollout with dimensions (T, H, W, C)
     """
     rollout = mjx_rollout(env, inference_fn, n_steps, render_every, seed)
-    images = env.render(rollout[::render_every], camera="side")
+    images = env.render(rollout[::render_every], camera="side", width=width, height=height)
 
     return np.array(images)
 
@@ -90,6 +94,8 @@ def render_mujoco_rollout(
     n_steps: int = 1000,
     render_every: int = 2,
     seed: int = 0,
+    width: int = 320,
+    height: int = 240,
 ) -> np.ndarray:
     """Rollout a trajectory using MuJoCo.
 
@@ -99,6 +105,8 @@ def render_mujoco_rollout(
         n_steps: Number of steps to rollout
         render_every: Render every nth step
         seed: Random seed
+        width: width of rendered frame in pixels
+        height: height of rendered frame in pixels
 
     Returns:
         A list of images of the policy rollout (T, H, W, C)
@@ -106,7 +114,7 @@ def render_mujoco_rollout(
     print(f"Rolling out {n_steps} steps with MuJoCo")
     model = env.sys.mj_model
     data = mujoco.MjData(model)
-    renderer = mujoco.Renderer(model)
+    renderer = mujoco.Renderer(model, width=width, height=height)
     ctrl = jp.zeros(model.nu)
 
     images: list[np.ndarray] = []
