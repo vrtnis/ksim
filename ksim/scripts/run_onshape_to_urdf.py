@@ -71,8 +71,8 @@ def run_onshape_to_urdf(model_url: str, output_dir: str | Path, override_central
         disable_mimics=True,
         override_central_node=override_central_node,
         merge_fixed_joints=True,
-        merge_fixed_joints=True,
         simplify_meshes=True,
+        remove_inertia=True,
     )
     converter.save_mjcf()
     latest_mjcf_path = converter.output_dir
