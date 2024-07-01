@@ -31,6 +31,7 @@ def run_onshape_to_urdf(model_url: str, output_dir: str | Path, override_central
         disable_mimics=True,
         mesh_ext="stl",
         override_central_node=override_central_node,
+        remove_inertia=True,
         merge_fixed_joints=True,
         simplify_meshes=True,
     )
@@ -51,6 +52,7 @@ def run_onshape_to_urdf(model_url: str, output_dir: str | Path, override_central
         disable_mimics=True,
         mesh_ext="obj",
         override_central_node=override_central_node,
+        remove_inertia=True,
     )
     converter.save_urdf()
     latest_obj_urdf_path = converter.output_dir
@@ -68,6 +70,7 @@ def run_onshape_to_urdf(model_url: str, output_dir: str | Path, override_central
         suffix_to_joint_effort=list(SUFFIX_TO_JOINT_EFFORT.items()),
         disable_mimics=True,
         override_central_node=override_central_node,
+        merge_fixed_joints=True,
         merge_fixed_joints=True,
         simplify_meshes=True,
     )
