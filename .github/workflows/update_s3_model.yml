@@ -67,10 +67,22 @@ jobs:
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
         run: |
-          for file in stompy/*.tar.gz; do
+          for file in stompy_arm_7dof/*.tar.gz; do
             aws s3 cp "$file" s3://${AWS_S3_BUCKET}/$(basename "$file")
           done
-          for file in stompy_arm/*.tar.gz; do
+          for file in stompy_arm_5dof/*.tar.gz; do
+            aws s3 cp "$file" s3://${AWS_S3_BUCKET}/arm_$(basename "$file")
+          done
+          for file in stompy_7dof/*.tar.gz; do
+            aws s3 cp "$file" s3://${AWS_S3_BUCKET}/$(basename "$file")
+          done
+          for file in stompy_5dof/*.tar.gz; do
+            aws s3 cp "$file" s3://${AWS_S3_BUCKET}/arm_$(basename "$file")
+          done
+          for file in stompy_torso_7dof/*.tar.gz; do
+            aws s3 cp "$file" s3://${AWS_S3_BUCKET}/$(basename "$file")
+          done
+          for file in stompy_torso_5dof/*.tar.gz; do
             aws s3 cp "$file" s3://${AWS_S3_BUCKET}/arm_$(basename "$file")
           done
 
