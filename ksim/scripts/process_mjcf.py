@@ -359,7 +359,7 @@ class Sim2SimRobot(mjcf.Robot):
         root.insert(
             1,
             mjcf.Default(
-                joint=mjcf.Joint(armature=0.01, damping=0.1, limited=True, frictionloss=0.01),
+                joint=mjcf.Joint(armature=0.01, damping=0.1, limited=True, frictionloss=0.00),
                 motor=mjcf.Motor(ctrllimited=True),
                 equality=mjcf.Equality(solref=(0.001, 2)),
                 geom=mjcf.Geom(
