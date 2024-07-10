@@ -67,8 +67,8 @@ UPDATE_NAMES = {
     "lower_limbs_1_leg_assembly_1_rmd_x8_90_mock_3_dof_x8": "right knee pitch",
     "lower_limbs_1_leg_assembly_2_rmd_x4_24_mock_1_dof_x4": "left ankle pitch",
     "lower_limbs_1_leg_assembly_1_rmd_x4_24_mock_1_dof_x4": "right ankle pitch",
-    "lower_limbs_1_left_foot_1_rmd_x4_24_mock_1_dof_x4": "right ankle roll",
-    "lower_limbs_1_right_foot_1_rmd_x4_24_mock_1_dof_x4": "left ankle roll",
+    "lower_limbs_1_left_foot_1_rmd_x4_24_mock_1_dof_x4": "left ankle roll",
+    "lower_limbs_1_right_foot_1_rmd_x4_24_mock_1_dof_x4": "right ankle roll",
     "full_arm_5_dof_1_upper_left_arm_1_rmd_x4_24_mock_1_dof_x4": "right shoulder roll",
     "full_arm_5_dof_2_upper_left_arm_1_rmd_x4_24_mock_1_dof_x4": "left shoulder roll",
 }
