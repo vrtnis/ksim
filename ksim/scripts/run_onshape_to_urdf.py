@@ -71,6 +71,18 @@ UPDATE_NAMES = {
     "lower_limbs_1_right_foot_1_rmd_x4_24_mock_1_dof_x4": "right ankle roll",
     "full_arm_5_dof_1_upper_left_arm_1_rmd_x4_24_mock_1_dof_x4": "right shoulder roll",
     "full_arm_5_dof_2_upper_left_arm_1_rmd_x4_24_mock_1_dof_x4": "left shoulder roll",
+    "right_foot_1_rmd_x4_24_mock_1_dof_x4": "right ankle roll",
+    "left_foot_1_rmd_x4_24_mock_1_dof_x4": "left ankle roll",
+    "right_1_rmd_x4_24_mock_1_dof_x4": "right ankle pitch",
+    "left_1_rmd_x4_24_mock_1_dof_x4": "left ankle pitch",
+    "right_1_rmd_x8_90_mock_3_dof_x8": "right knee pitch",
+    "left_1_rmd_x8_90_mock_3_dof_x8": "left knee pitch",
+    "left_1_rmd_x12_150_mock_1_dof_x12": "left hip pitch",
+    "right_1_rmd_x12_150_mock_1_dof_x12": "right hip pitch",
+    "left_1_rmd_x8_90_mock_2_dof_x8": "left hip roll",
+    "right_1_rmd_x8_90_mock_2_dof_x8": "right hip roll",
+    "left_1_rmd_x8_90_mock_1_dof_x8": "left hip yaw",
+    "right_1_rmd_x8_90_mock_1_dof_x8": "right hip yaw",
 }
 
 OVERRIDE = [
